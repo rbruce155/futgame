@@ -1,4 +1,4 @@
-names_app.controller('namesController', function ($scope, namesFactory) {
+futgame_app.controller('namesController', function ($scope, namesFactory) {
 
   namesFactory.index(function(data){
     $scope.personList = data;

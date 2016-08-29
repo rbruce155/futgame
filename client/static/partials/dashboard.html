@@ -1,0 +1,23 @@
+<div ng-controller='namesController'>
+<h1>1955 Dashboard</h1>
+<hr>
+<p>
+  Add people who were born in 1955!
+</p>
+  <form ng-submit='addPerson()'>
+    <input type="text" name="name" value="" ng-model='newPerson.name'>
+    <input type="submit" value="Submit">
+  </form>
+  </p>
+  <br>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+    <tr ng-repeat='person in personList'>
+      <td>{{person.name}}</td>
+      <td><button type="button" ng-click='removePerson(person)'>Delete</button></td>
+    </tr>
+  </table>
+</div>

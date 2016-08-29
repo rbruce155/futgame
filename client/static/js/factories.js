@@ -1,4 +1,4 @@
-names_app.factory('namesFactory', function ($http) {
+futgame_app.factory('namesFactory', function ($http) {
   var factory = {};
   var personList = [];
 
