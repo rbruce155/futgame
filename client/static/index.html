@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app='1955app'>
+  <head>
+    <meta charset="utf-8">
+    <title>1955 API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+    <script>
+      // Let's create our angular module
+      var names_app = angular.module('1955app', []);
+    </script>
+    <!-- Load controllers  -->
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/factories.js"></script>
+  </head>
+  <body>
+    <h1>1955 Dashboard</h1>
+    <hr>
+    <p>
+      Add people who were born in 1955!
+    </p>
+    <div ng-controller='namesController'>
+      <form ng-submit='addPerson()'>
+        <input type="text" name="name" value="" ng-model='newPerson.name'>
+        <input type="submit" value="Submit">
+      </form>
+      </p>
+      <br>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        <tr ng-repeat='person in personList'>
+          <td>{{person.name}}</td>
+          <td><button type="button" ng-click='removePerson(person)'>Delete</button></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
