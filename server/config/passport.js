@@ -6,7 +6,8 @@ var User = mongoose.model("User");
 module.exports = function(passport)
 {
 	passport.serializeUser(function(user, callback){
-		callback(null, user.id);
+		var sessionUser = {_id: user._id, name: user.username };
+		callback(null, sessionUser);
 	});
 
 	passport.deserializeUser(function(id, callback){
