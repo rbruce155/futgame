@@ -15,52 +15,11 @@ module.exports = function(passport)
 		});
 	});
 
-	passport.use("local-signup", new LocalStrategy({
-		usernameField: "email",
-		passwordField: "password",
-		passReqToCallback: true
-	},
-	function(req, email, password, callback){
-		process.nextTick(function(){
-			User.findOne({"email": email}, function(err, user){
-				if(err)
-				{
-					return callback(err, false);
-				}
-				if(user)
-				{
-					return callback(null, false, req.flash("signupMessage", "That email already taken"));
-				}
-				else
-				{
-					var newUser = new User({
-						username: req.body.username,
-						password: password,
-						email: email,
-						credit: req.body.credit
-					});
-
-					newUser.save(function(err){
-						if(err)
-						{
-							throw err;
-						}
-						else
-						{
-							return callback(null, newUser);
-						}
-					})
-				}
-			})
-		});
-	}));
-
 	passport.use("local-login", new LocalStrategy({
 		usernameField: "email",
 		passwordField: "password",
-		passReqToCallback: true
 	},
-	function(req, email, password, callback){
+	function(email, password, callback){
 		process.nextTick(function(){
 			User.findOne({"email": email}, function(err, user){
 				if(err)
@@ -69,14 +28,14 @@ module.exports = function(passport)
 				}
 				if(!user)
 				{
-					return callback(null, false, req.flash("loginmessage", "No User found"));
+					return callback("Not user found.", false);
 				}
 				if(!user.comparePassword(password))
 				{
-					return callback(null, false, req.flash("loginMessage", "invalid password"))
+					return callback("Incorrect password.", false);
 				}
 				return callback(null, user);
-			})
-		})
-	}))
+			});
+		});
+	}));
 }

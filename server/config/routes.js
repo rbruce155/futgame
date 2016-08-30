@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
+var users = require("./../controllers/users.js");
 
 module.exports = function(app, passport)
 {
@@ -7,23 +8,26 @@ module.exports = function(app, passport)
       res.send("Good Signup or login");
     });
 
-    app.post("/signup", passport.authenticate("local-signup", {
-        successRedirect: "/",
-        failureRedirect: "/signup",
-        failureFlash: true
-    }));
-
-    app.get('/signup', function(req, res){
-      res.send("error Signup");
+    app.post("/signup", function(req, res){
+        users.create(req, res);
     });
 
     app.post("/login", passport.authenticate("local-login", {
-      successRedirect: "/",
-      failureRedirect: "/login",
-      failureFlash: true
-    }))
+        successRedirect: "/dashboard",
+    }));
 
-    app.get("/login", function(req, res){
-      res.send("error login");
-    });
+    app.get("/dashboard", isLoggedIn, function(req, res){
+        res.json({success: true, msg: "user login"});
+    })
+}
+
+function isLoggedIn(req, res, next)
+{
+  if(req.isAuthenticated()){
+    return next();
+  }
+  else
+  {
+    res.json({success: false, msg: "you are not login"});
+  }
 }
