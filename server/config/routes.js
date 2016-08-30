@@ -6,24 +6,22 @@ var matches = require('./../controllers/matches');
 
 module.exports = function(app, passport)
 {
-    app.get('/', function(req, res){
-      res.send("Good Signup or login");
-    });
 
     app.post("/signup", function(req, res){
         users.create(req, res);
     });
 
     app.post("/login", passport.authenticate("local-login", {
-        successRedirect: "/dashboard",
+        successRedirect: "/getpools",
     }));
 
-    app.get("/dashboard", isLoggedIn, function(req, res){
-        res.json({success: true, msg: "user login"});
-    })
+    app.get("/logout", function (req, res) {
+        req.logout();
+        res.json('user has been logged out');
+    });
 
     ///==================== pools controller =============
-  app.get('/getpools', function(req, res) {
+  app.get('/getpools', isLoggedIn, function(req, res) {
       pools.index(req, res);
   });
 
@@ -65,6 +63,6 @@ function isLoggedIn(req, res, next)
   }
   else
   {
-    res.json({success: false, msg: "you are not login"});
+    res.json(false);
   }
 }

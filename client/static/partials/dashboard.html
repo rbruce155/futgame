@@ -1,23 +1,40 @@
-<div ng-controller='namesController'>
-<h1>1955 Dashboard</h1>
-<hr>
-<p>
-  Add people who were born in 1955!
-</p>
-  <form ng-submit='addPerson()'>
-    <input type="text" name="name" value="" ng-model='newPerson.name'>
-    <input type="submit" value="Submit">
-  </form>
-  </p>
-  <br>
+<div ng-controller='dashboardController'>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Robert Bruce</a></li>
+        <li><a href="badges.html">Credit: $0</a></li>
+        <li><button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+  <h1>Current Pools:</h1>
   <table>
-    <tr>
-      <th>Name</th>
-      <th>Action</th>
-    </tr>
-    <tr ng-repeat='person in personList'>
-      <td>{{person.name}}</td>
-      <td><button type="button" ng-click='removePerson(person)'>Delete</button></td>
-    </tr>
-  </table>
+       <thead>
+         <tr>
+             <th data-field="id">Name</th>
+             <th data-field="name">Item Name</th>
+             <th data-field="price">Item Price</th>
+         </tr>
+       </thead>
+
+       <tbody>
+         <tr>
+           <td>Alvin</td>
+           <td>Eclair</td>
+           <td>$0.87</td>
+         </tr>
+         <tr>
+           <td>Alan</td>
+           <td>Jellybean</td>
+           <td>$3.76</td>
+         </tr>
+         <tr>
+           <td>Jonathan</td>
+           <td>Lollipop</td>
+           <td>$7.00</td>
+         </tr>
+       </tbody>
+     </table>
 </div>

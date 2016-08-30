@@ -4,7 +4,7 @@ futgame_app.config(function ($routeProvider) {
     .when('/',{
         templateUrl: 'partials/login.html'
     })
-    .when('/main',{
+    .when('/dashboard',{
         templateUrl: 'partials/dashboard.html'
     })
 

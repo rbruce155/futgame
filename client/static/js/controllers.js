@@ -1,7 +1,13 @@
-futgame_app.controller('loginController', function ($scope, $location, loginFactory) {
+futgame_app.controller('loginController', function ($scope, $cookies, $location, loginFactory) {
 
   $scope.login = function () {
-    loginFactory.login($scope.login, function (data){
+    loginFactory.login($scope.loginUser, function (data){
+        $location.url('/dashboard');
+    });
+}
+
+  $scope.register = function () {
+    loginFactory.register($scope.newUser, function (data){
       if (data.data.errors){
         $scope.errors = data.data.errors;
       }
@@ -14,28 +20,23 @@ futgame_app.controller('loginController', function ($scope, $location, loginFact
     });
   };
 
-  $scope.register = function () {
-    loginFactory.login($scope.newUser, function (data){
-      if (data.data.errors){
-        $scope.errors = data.data.errors;
-      }
-      else{
-        $scope.user = data.data;
-        $location.path('/dashboard');
-      }
-    }, function(err){
-      console.log("I am an error",err);
-    });
-  };
+  $scope.logout = function () {
+    console.log('hi cont');
+      loginFactory.logout(function (data) {
+        $location.path('/login');
+      })
+  }
+
 
 });
 
 
 
 //deleteme after we create dashboard
-futgame_app.controller('namesController', function ($scope, namesFactory) {
+futgame_app.controller('dashboardController', function ($scope, loginFactory, dashboardFactory) {
 
-  namesFactory.index(function(data){
+
+  dashboardFactory.index(function(data){
     $scope.personList = data;
   });
 

@@ -9,9 +9,18 @@ futgame_app.factory('loginFactory', function ($http) {
   };
 
   factory.register = function (newUser, callback) {
-      $http.post('/signin', newUser).success(function (output) {
+      console.log('register' + newUser);
+      $http.post('/signup', newUser).success(function (output) {
         callback(output);
-      })
+      });
+  };
+
+  factory.logout = function (callback) {
+    console.log('hi fact');
+    $http.get('/logout').success(function (output) {
+      console.log('hi success');
+      callback(output);
+    });
   };
 
 
@@ -19,13 +28,14 @@ futgame_app.factory('loginFactory', function ($http) {
 });
 
 
-futgame_app.factory('namesFactory', function ($http) {
+futgame_app.factory('dashboardFactory', function ($http) {
   var factory = {};
   var personList = [];
 
   //Restful syntax: index = get all that object
   factory.index = function(callback) {
-      $http.get('/names').success(function(output) {
+
+      $http.get('/pools').success(function(output) {
       callback(output);
     })
   };
