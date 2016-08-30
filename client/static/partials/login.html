@@ -12,9 +12,70 @@
             </object>
         </video>
     </div>
+    <div class="loginboxBack">
+    </div>
+
     <div class="loginbox">
-      <p>
-        login box
-      </p>
+      <div class="row" >
+        <div class="logo col s12">
+          <img src="../img/logo.png" alt="" />
+        </div>
+      </div>
+      <div class="row loginform" >
+       <form class="col s12" ng-submit='login()'>
+         <div class="row">
+           <div class="input-field col s12">
+             <input id="email" type="text" class="validate" ng-model='login.email'>
+             <label for="email">Email</label>
+           </div>
+         </div>
+         <div class="row">
+           <div class="input-field col s12">
+             <input id="password" type="password" class="validate" ng-model='login.password'>
+             <label for="password">Password</label>
+           </div>
+           <button>login</button>
+         </div>
+       </form>
+     </div>
+     <div class="row loginform">
+       <div class="col s12">
+         Dont have an account? <a href="#/" onclick="showRegistration()">Create an account</a>
+       </div>
+     </div>
+     <div class="row registrationform">
+      <form class="col s12" ng-submit='register()'>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="text" class="validate" ng-model="newUser.email">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" ng-model="newUser.username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" ng-model="newUser.password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" ng-model="newUser.passconf">
+            <label for="password">Confirm Password</label>
+          </div>
+          <button>sign up</button>
+        </div>
+      </form>
+    </div>
+    <div class="row registrationform">
+    <div class="col s12">
+        Dont have an account? <a href="#/" onclick="showLogin()" >Register</a>
+      </div>
+    </div>
     </div>
 </div>

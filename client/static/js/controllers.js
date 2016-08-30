@@ -1,3 +1,38 @@
+futgame_app.controller('loginController', function ($scope, $location, loginFactory) {
+
+  $scope.login = function () {
+    loginFactory.login($scope.login, function (data){
+      if (data.data.errors){
+        $scope.errors = data.data.errors;
+      }
+      else{
+        $scope.user = data.data;
+        $location.path('/dashboard');
+      }
+    }, function(err){
+      console.log("I am an error",err);
+    });
+  };
+
+  $scope.register = function () {
+    loginFactory.login($scope.newUser, function (data){
+      if (data.data.errors){
+        $scope.errors = data.data.errors;
+      }
+      else{
+        $scope.user = data.data;
+        $location.path('/dashboard');
+      }
+    }, function(err){
+      console.log("I am an error",err);
+    });
+  };
+
+});
+
+
+
+//deleteme after we create dashboard
 futgame_app.controller('namesController', function ($scope, namesFactory) {
 
   namesFactory.index(function(data){
