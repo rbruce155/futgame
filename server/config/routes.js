@@ -1,18 +1,29 @@
-//load controllers
-var persons = require('../controllers/persons.js');
+var mongoose = require("mongoose");
+var User = mongoose.model("User");
 
-//routes
-module.exports = function(app) {
-  app.get('/names', function(req, res) {
-    persons.showAll(req, res)
-  });
-  app.get('/new/:name/', function(req,res){
-    persons.create(req, res)
-  });
-  app.get('/remove/:name/', function (req, res) {
-    persons.delete(req, res)
-  });
-  app.get('/:name', function (req, res){
-    persons.showOne(req, res)
-  });
+module.exports = function(app, passport)
+{
+    app.get('/', function(req, res){
+      res.send("Good Signup or login");
+    });
+
+    app.post("/signup", passport.authenticate("local-signup", {
+        successRedirect: "/",
+        failureRedirect: "/signup",
+        failureFlash: true
+    }));
+
+    app.get('/signup', function(req, res){
+      res.send("error Signup");
+    });
+
+    app.post("/login", passport.authenticate("local-login", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+      failureFlash: true
+    }))
+
+    app.get("/login", function(req, res){
+      res.send("error login");
+    });
 }
