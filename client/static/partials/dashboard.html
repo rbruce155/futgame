@@ -1,12 +1,37 @@
-<div ng-controller='poolsController'>
+<div ng-controller='dashboardController'>
+  <!-- Modal Structure -->
+  <div id="creditModal" class="modal">
+      <div class="modal-content">
+          <h4>Buy Credit</h4>
+          <h6>Current Credit: ${{userCredit}}</h6>
+          <div input-field>
+              <label>Choose amout:</label><br>
+              <select class="" ng-model="creditBuy.amount" material-select watch>
+                  <option value="5">$5</option>
+                  <option value="10">$10</option>
+                  <option value="20">$20</option>
+                  <option value="50">$50</option>
+                  <option value="100">$100</option>
+              </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <a ng-click="addCredit()" class="modal-action modal-close waves-effect waves-green btn-flat">Buy</a>
+          <a href="#/dashboard" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      </div>
+  </div>
+<!-- Dropdown Structure -->
+<ul id='userDropdown' class='dropdown-content'>
+    <li><a href='#creditModal' modal>Add Credit</a></li>
+    <li><a ng-click="logoutButton()">Logout</a></li>
+</ul>
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><img style="width:170px;" src="../img/logo.png" alt="" /></a>
+      <a href="#" class="brand-logo"><img style="width:170px;padding-top:8px;" src="../img/logo.png" alt="" /></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Welcome {{ currentUser.username }}</a></li>
-        <li><a href="badges.html">Credit: $0</a></li>
+        <li><a href='#creditModal' modal>Credit: ${{userCredit}}</a></li>
         <li><button type="button" class="btn btn-default navbar-btn" ng-click="createPoolButton()">Create Pool</button></li>
-        <li><button type="button" class="btn btn-default navbar-btn" ng-click="logoutButton()">Logout</button></li>
+        <li><a class='dropdown-button btn' href='javascript:void(0);' data-activates='userDropdown' dropdown data-hover="true">Welcome {{ currentUser.username }}</a></li>
       </ul>
     </div>
   </nav>

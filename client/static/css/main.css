@@ -67,3 +67,5 @@ nav {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.modal{overflow-y: visible !important;}

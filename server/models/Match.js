@@ -23,9 +23,9 @@ var MatchSchema = new Schema({
         required: true,
     },
     matchDate: {
-        type: String,
+        type: Date,
         required: true,
-    } 
+    }
 }, {
     timestamps: true
 });

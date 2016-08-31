@@ -1,4 +1,4 @@
-//LOGIN FACTORY
+//USERS FACTORY
 futgame_app.factory('usersFactory', function ($http) {
     var factory = {};
 
@@ -22,6 +22,18 @@ futgame_app.factory('usersFactory', function ($http) {
         // console.log('hi success');
             callback(output);
         });
+    };
+
+    factory.getCredit = function (userInfo, callback) {
+      $http.post('/getuser', userInfo).success(function (output) {
+        callback(output.userInfo.credit);
+      });
+    };
+
+    factory.addCredit = function (purchaseInfo, callback) {
+      $http.post('/addcredit', purchaseInfo).success(function (output) {
+        callback(output);
+      });
     };
 
     return factory;

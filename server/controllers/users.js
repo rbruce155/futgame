@@ -58,7 +58,40 @@ module.exports = (function() {
                         });
                     }
                 });
-            } //END login
+            },
+
+            getuser: function (req, res) {
+              User.findOne({
+                  _id: req.body.id
+              }, function(err, user) {
+                  if (err) {
+                      return res.json({
+                          success: false,
+                          msg: "user not found."
+                      });
+                  } else {
+                      res.json({
+                          success: true,
+                          userInfo: user
+                      });
+                  }
+              });
+            },
+            addcredit: function (req, res) {
+              User.findOneAndUpdate(
+                {_id: req.body.purchase_user.id},
+                {$inc: {"credit": req.body.purchase_amt.amount}},
+                {upsert: true},
+                function(err, user) {
+                  if(err){
+                    console.log(err);
+                  }
+                  else{
+                    req.body.id = req.body.purchase_user.id; //hacky fix if we have time
+                    module.exports.getuser(req, res);
+                  }
+                });
+            }
     };
 
 })();

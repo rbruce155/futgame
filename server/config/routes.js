@@ -22,6 +22,14 @@ module.exports = function(app, passport) {
         res.json('user has been logged out');
     });
 
+    app.post("/getuser", function(req, res) {
+        users.getuser(req, res);
+    });
+
+    app.post("/addcredit", function (req, res) {
+        users.addcredit(req, res);
+    });
+
     ///==================== pools routes =============
     app.get('/getpools', isLoggedIn, function(req, res) {
         pools.index(req, res);

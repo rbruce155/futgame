@@ -48,17 +48,14 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 });
 
 
-//============================ poolsController ======================================
+//============================ dashboardController ======================================
 
-//deleteme after we create dashboard
-futgame_app.controller('poolsController', function($scope, $cookies, $location, usersFactory, poolsFactory) {
+futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory) {
     $scope.currentUser = {
         id: $cookies.get('id'),
         username: $cookies.get('username'),
     };
    // console.log('poolsController - currentUser', $scope.currentUser);
-
-
 
     poolsFactory.index(function(response) {
         //console.log('poolsController - index', response);
@@ -68,8 +65,13 @@ futgame_app.controller('poolsController', function($scope, $cookies, $location, 
             console.log('poolsController - index' + response);
             //$location.url('/');
         }
-
     });
+
+    //get users credit upon hitting dashboard page
+    usersFactory.getCredit($scope.currentUser, function(data){
+      $scope.userCredit = data;
+    });
+
 
     $scope.logoutButton = function() {
         //console.log('hi cont');
@@ -84,8 +86,17 @@ futgame_app.controller('poolsController', function($scope, $cookies, $location, 
     $scope.createPoolButton = function(){
         $location.url('/createpool');
     }
-});
+    // initialize credit scope object
+    $scope.creditBuy = {};
 
+    //add credit
+    $scope.addCredit = function(){
+        var purchaseInfo = {purchase_amt: $scope.creditBuy, purchase_user: $scope.currentUser};
+        usersFactory.addCredit(purchaseInfo, function (data) {
+          $scope.userCredit = data.userInfo.credit;
+        })
+    }
+});
 
 //============================ createpoolsController ======================================
 
@@ -120,7 +131,6 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
     $scope.removeMatch = function(match){
         var index = $scope.chooseMatches.indexOf(match);
         $scope.chooseMatches.splice(index, 1);
-        chooseMatches.splice(index, 1);
     }
 
     $scope.createpool = function(){
