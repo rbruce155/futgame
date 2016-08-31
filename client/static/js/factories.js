@@ -6,7 +6,7 @@ futgame_app.factory('usersFactory', function ($http) {
   factory.login = function (user, callback) {
     $http.post('/login', user).success(function (output) {
       callback(output);
-    })
+  });
   };
 
   factory.register = function (newUser, callback) {
@@ -34,10 +34,10 @@ futgame_app.factory('poolsFactory', function ($http) {
   var poolsList = [];
 
   factory.index = function(callback) {
-      $http.get('/getpools').success(function(output) {
-        console.log('in fact ' + output);
-      callback(output);
-    })
+      $http.get('/getpools').success(function(response) {
+        // console.log('in fact ' + response.pools[0].poolName);
+      callback(response);
+  });
   };
 
 

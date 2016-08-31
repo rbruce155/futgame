@@ -1,0 +1,21 @@
+{
+  "name": "static",
+  "homepage": "https://github.com/rbruce155/futgame",
+  "authors": [
+    "Barak Ben-David <barakbd@live.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-cookies": "^1.5.8"
+  }
+}

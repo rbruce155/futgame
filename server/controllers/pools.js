@@ -4,12 +4,13 @@ var Pool = mongoose.model('Pool');
 module.exports = {
     index: function(req, res) {
         Pool.find({}).populate('_poolCreateBy').populate('_poolMatches').populate('_poolUsers').exec(function(err, pools) {
-            if (err) {                
+            if (err) {
                 res.json({
                     success: false,
                     msg: err
                 });
             } else {
+                // console.log('pools - index- success', pools);
                     res.json({
                     success: true,
                     pools: pools
