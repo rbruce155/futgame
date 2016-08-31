@@ -1,4 +1,5 @@
-futgame_app.factory('loginFactory', function ($http) {
+//LOGIN FACTORY
+futgame_app.factory('usersFactory', function ($http) {
   var factory = {};
 
 
@@ -27,29 +28,16 @@ futgame_app.factory('loginFactory', function ($http) {
   return factory;
 });
 
-
-futgame_app.factory('dashboardFactory', function ($http) {
+//POOLS FACTORY
+futgame_app.factory('poolsFactory', function ($http) {
   var factory = {};
-  var personList = [];
+  var poolsList = [];
 
-  //Restful syntax: index = get all that object
   factory.index = function(callback) {
-
-      $http.get('/pools').success(function(output) {
+      $http.get('/getpools').success(function(output) {
+        console.log('in fact ' + output);
       callback(output);
     })
-  };
-
-  factory.create = function (newPerson, callback) {
-    $http.get('/new/' + newPerson.name + '/').success(function (output) {
-      callback(output);
-    })
-  };
-
-  factory.delete = function (person, callback) {
-      $http.get('/remove/'+ person.name +'/').success(function (output) {
-        callback(output);
-      })
   };
 
 

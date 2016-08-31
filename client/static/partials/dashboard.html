@@ -1,7 +1,7 @@
-<div ng-controller='dashboardController'>
+<div ng-controller='poolsController'>
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
+      <a href="#" class="brand-logo"><img style="width:170px;" src="../img/logo.png" alt="" /></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="sass.html">Robert Bruce</a></li>
         <li><a href="badges.html">Credit: $0</a></li>
@@ -9,32 +9,28 @@
       </ul>
     </div>
   </nav>
-  <h1>Current Pools:</h1>
-  <table>
-       <thead>
-         <tr>
-             <th data-field="id">Name</th>
-             <th data-field="name">Item Name</th>
-             <th data-field="price">Item Price</th>
-         </tr>
-       </thead>
+  <div class="wrapBody">
+    <h2>Current Pools:</h2>
+    <table>
+         <thead>
+           <tr>
+               <th data-field="id">Pool Name</th>
+               <th data-field="play_amount">Play Ammount</th>
+               <th data-field="total_players">Players</th>
+               <th data-field="prize">Total Prize</th>
+               <th data-field="prize">Action</th>
+           </tr>
+         </thead>
 
-       <tbody>
-         <tr>
-           <td>Alvin</td>
-           <td>Eclair</td>
-           <td>$0.87</td>
-         </tr>
-         <tr>
-           <td>Alan</td>
-           <td>Jellybean</td>
-           <td>$3.76</td>
-         </tr>
-         <tr>
-           <td>Jonathan</td>
-           <td>Lollipop</td>
-           <td>$7.00</td>
-         </tr>
-       </tbody>
-     </table>
+         <tbody>
+           <tr ng-repeat="pool in poolsList.pools">
+             <td>{{pool.poolName}}</td>
+             <td>${{pool.poolPlayAmount}}</td>
+             <td>{{pool._poolUsers.length}}</td>
+             <td>${{pool.poolPlayAmount * pool._poolUsers.length}}</td>
+             <td><button type="button" class="btn btn-default" ng-click="join(pool)">Join</button></td>
+           </tr>
+         </tbody>
+       </table>
+  </div>
 </div>

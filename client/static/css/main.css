@@ -56,3 +56,14 @@ div.loginboxBack {
   padding: 0 10px;
   display: none;
 }
+
+nav {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #152d23 !important;
+}
+
+.wrapBody{
+  padding-left: 10px;
+  padding-right: 10px;
+}

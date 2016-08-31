@@ -1,13 +1,13 @@
-futgame_app.controller('loginController', function ($scope, $cookies, $location, loginFactory) {
+futgame_app.controller('usersController', function ($scope, $cookies, $location, usersFactory) {
 
   $scope.login = function () {
-    loginFactory.login($scope.loginUser, function (data){
+    usersFactory.login($scope.loginUser, function (data){
         $location.url('/dashboard');
     });
 }
 
   $scope.register = function () {
-    loginFactory.register($scope.newUser, function (data){
+    usersFactory.register($scope.newUser, function (data){
       if (data.data.errors){
         $scope.errors = data.data.errors;
       }
@@ -22,7 +22,7 @@ futgame_app.controller('loginController', function ($scope, $cookies, $location,
 
   $scope.logout = function () {
     console.log('hi cont');
-      loginFactory.logout(function (data) {
+      usersFactory.logout(function (data) {
         $location.path('/login');
       })
   }
@@ -31,28 +31,10 @@ futgame_app.controller('loginController', function ($scope, $cookies, $location,
 });
 
 
+futgame_app.controller('poolsController', function ($scope, usersFactory, poolsFactory) {
 
-//deleteme after we create dashboard
-futgame_app.controller('dashboardController', function ($scope, loginFactory, dashboardFactory) {
-
-
-  dashboardFactory.index(function(data){
-    $scope.personList = data;
+  poolsFactory.index(function(data){
+    $scope.poolsList = data;
   });
-
-  $scope.addPerson = function () {
-    namesFactory.create($scope.newPerson, function (data) {
-      $scope.personList = data;
-      $scope.newPerson = {};
-    });
-  };
-
-  $scope.removePerson =  function (person) {
-    namesFactory.delete(person, function (data) {
-      $scope.personList = data;
-    });
-  };
-
-
 
 });

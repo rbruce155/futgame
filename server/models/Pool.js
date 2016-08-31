@@ -28,12 +28,12 @@ var PoolSchema = new Schema({
     _poolUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        //required: true
     }],
     poolPredictions: [{
         type: Schema.Types.ObjectId,
         ref: 'Prediction',
-        required: true
+        //required: true
     }],
     poolStart: Boolean
 }, {
