@@ -51,7 +51,7 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 //============================ poolsController ======================================
 
 //deleteme after we create dashboard
-futgame_app.controller('poolsController', function($scope, $cookies, $location, usersFactory, poolsFactory) {
+futgame_app.controller('poolsController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory) {
     $scope.currentUser = {
         id: $cookies.get('id'),
         username: $cookies.get('username'),
@@ -83,6 +83,11 @@ futgame_app.controller('poolsController', function($scope, $cookies, $location, 
 
     $scope.createPoolButton = function(){
         $location.url('/createpool');
+    }
+
+    $scope.joinPool = function(pool){
+        poolServiceFactory.setPool(pool);
+        $location.url('/pool')
     }
 });
 
@@ -120,7 +125,6 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
     $scope.removeMatch = function(match){
         var index = $scope.chooseMatches.indexOf(match);
         $scope.chooseMatches.splice(index, 1);
-        chooseMatches.splice(index, 1);
     }
 
     $scope.createpool = function(){
@@ -156,5 +160,58 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
             }
         })
 
+    }
+})
+
+futgame_app.controller('poolPredictionController', function($scope, $location, $cookies, poolServiceFactory, predictionsFactory){
+
+    $scope.teamPrediction = {};
+
+    $scope.pool = poolServiceFactory.getPool();
+    console.log($scope.pool);
+    $scope.matches = $scope.pool._poolMatches;
+
+    $scope.createPrediction = function()
+    {
+        var size = 0, key;
+        for(key in $scope.teamPrediction)
+        {
+            if($scope.teamPrediction.hasOwnProperty(key)) size++;
+        }
+
+        //this step is to check if the user puts all the predictions for each team
+        if(size != $scope.matches.length*2)
+        {
+            console.log("Get all your predictions!");
+        }
+        else
+        {
+            var fullPlayerPrediction = {};
+            var predictionsArray= [];
+
+            for(var i = 0; i < $scope.matches.length; i++)
+            {
+                var homeTeam = $scope.matches[i].homeTeamName;
+                var awayTeam = $scope.matches[i].awayTeamName;
+                var matchID = $scope.matches[i]._id;
+                predictionsArray.push({_match: matchID, homeTeamScorePrediction: $scope.teamPrediction[homeTeam], awayTeamScorePrediction: $scope.teamPrediction[awayTeam]});
+            }
+
+            fullPlayerPrediction.poolId = $scope.pool._id;
+            fullPlayerPrediction.userId = $cookies.get('id');
+            fullPlayerPrediction.predictions = predictionsArray;
+
+            console.log(fullPlayerPrediction);
+            predictionsFactory.create(fullPlayerPrediction, function(response){
+                if (!response.success) {
+                    console.log(response.msg);
+                } else {
+                    console.log(response.msg);
+                    $location.url('/dashboard');
+                }
+            });
+
+            $scope.teamPrediction = {};
+        }
     }
 })

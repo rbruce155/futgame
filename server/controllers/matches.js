@@ -25,11 +25,13 @@ module.exports = {
         newMatch.awayTeamName = req.body.awayTeamName;
         newMatch.homeTeamScore = req.body.homeTeamScore;
         newMatch.awayTeamScore = req.body.awayTeamScore;
+        newMatch.homeTeamImg = req.body.homeTeamImg;
+        newMatch.awayTeamImg = req.body.awayTeamImg;
         newMatch.matchDate = req.body.matchDate;
         // Save to db
         newMatch.save(function(err) {
             if (err) {
-                console.log('matches - index - err', err);
+                //console.log('matches - index - err', err);
                 res.json({
                     success: false,
                     mgs: err
