@@ -23,17 +23,15 @@ var PoolSchema = new Schema({
     _poolMatches: [{
         type: Schema.Types.ObjectId,
         ref: 'Match',
-        // required: true
+        required: true
     }],
     _poolUsers: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
-        //required: true
     }],
     poolPredictions: [{
         type: Schema.Types.ObjectId,
         ref: 'Prediction',
-        //required: true
     }],
     poolStart: Boolean
 }, {

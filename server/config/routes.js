@@ -6,7 +6,7 @@ var matches = require('./../controllers/matches');
 
 module.exports = function(app, passport)
 {
-
+  ///==================== users routes =============
     app.post("/signup", function(req, res){
         users.create(req, res);
     });
@@ -20,7 +20,7 @@ module.exports = function(app, passport)
         res.json('user has been logged out');
     });
 
-    ///==================== pools controller =============
+    ///==================== pools routes =============
   app.get('/getpools', isLoggedIn, function(req, res) {
       pools.index(req, res);
   });
@@ -29,7 +29,7 @@ module.exports = function(app, passport)
       pools.create(req, res);
   });
 
-  ///==================== predictions controller =============
+  ///==================== predictions routes =============
   app.get('/findpredictionsbypoolid', function(req, res) {
       predictions.findAllWithPoolId(req, res);
   });
@@ -42,7 +42,7 @@ module.exports = function(app, passport)
       predictions.create(req, res);
   });
 
-  ///==================== matches controller =============
+  ///==================== matches routes =============
   app.get('/getmatches', function(req, res) {
       matches.index(req, res);
   });

@@ -21,7 +21,11 @@ var MatchSchema = new Schema({
         type: Number,
         min: 0,
         required: true,
-    }
+    },
+    matchDate: {
+        type: String,
+        required: true,
+    } 
 }, {
     timestamps: true
 });
