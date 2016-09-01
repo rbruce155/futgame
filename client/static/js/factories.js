@@ -30,8 +30,8 @@ futgame_app.factory('usersFactory', function ($http) {
       });
     };
 
-    factory.addCredit = function (purchaseInfo, callback) {
-      $http.post('/addcredit', purchaseInfo).success(function (output) {
+    factory.updateCredit = function (purchaseInfo, callback) {
+      $http.post('/updatecredit', purchaseInfo).success(function (output) {
         callback(output);
       });
     };

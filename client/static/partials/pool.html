@@ -1,7 +1,21 @@
-<div ng-controller='poolPredictionController'>
+ <div ng-controller='poolPredictionController'>
 	<div>
 		<h3>Pool Players: </h3>
+		<ul ng-repeat="user in users">
+			<li>{{ user.username }}</li>
+		</ul>
 	</div>
+	<div id="payPool" class="modal">
+      <div class="modal-content">
+          <h4>Pay Pool</h4>
+          <h6>Current Credit: ${{userCredit}}</h6>
+          <h6 style="color:red">Amount to play: ${{ pool.poolPlayAmount }}</h6>
+      </div>
+      <div class="modal-footer">
+          <a ng-click="createPrediction()" class="modal-action modal-close waves-effect waves-green btn-flat">Pay</a>
+          <a href="#/pool" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      </div>
+  </div>
 	<div>
 		<h3>Your Predictions: </h3>
 		<div ng-repeat="match in matches">
@@ -14,6 +28,6 @@
 			<img src="./img/ligamx/{{match.awayTeamImg}}"><br>
 			<label>play at: {{ match.matchDate }}</label><br><br>
 		</div>
-		<button ng-click="createPrediction()">Save Prediction</button>
+		<span><button><a href='#payPool' modal>Save & Pay Prediction</a></button></span>
 	</div>
 </div>

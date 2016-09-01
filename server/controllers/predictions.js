@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Prediction = mongoose.model('Prediction');
 var Pool = mongoose.model('Pool');
+var User = mongoose.model('User');
 
 module.exports = {
     findAllWithPoolId: function(req, res) {
@@ -45,6 +46,7 @@ module.exports = {
         newPrediction._predictionPool = req.body.poolId;
         newPrediction._predictionUser = req.body.userId;
         newPrediction.predictions = req.body.predictions;
+        newPrediction.predictionPay = true;
         // Save to db
         newPrediction.save(function(err) {
             if (err) {
@@ -65,10 +67,25 @@ module.exports = {
                     }
                     else
                     {
-                        res.json({
-                            success: true,
-                            msg: "Successfully create the predictions!"
+                        User.findOneAndUpdate(
+                        {_id: req.body.userId},
+                        {$inc: {"credit": -req.body.playAmount}},
+                        {upsert: true},
+                        function(err, user) {
+                            if(err){
+                                res.json({
+                                    success: false,
+                                    msg: "Users credit is not update"
+                                });
+                            }
+                            else{
+                                res.json({
+                                    success: true,
+                                    msg: "Successfully create and pay the predictions!"
+                                });
+                            }
                         });
+
                     }
                 })
             }
