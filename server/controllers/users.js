@@ -16,7 +16,8 @@ module.exports = (function() {
                     username: req.body.username,
                     password: req.body.password,
                     email: req.body.email,
-                    credit: req.body.credit
+                    credit: req.body.credit,
+                    img: req.body.img
                 });
 
                 newUser.save(function(err) {

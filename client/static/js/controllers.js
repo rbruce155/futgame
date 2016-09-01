@@ -18,12 +18,15 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
     };
 
     $scope.register = function() {
+        var imgArray = ["donald.jpg", "obama.jpg", "hilary.jpg", "face1.jpg", "face2.jpg"];
+        $scope.newUser.img = imgArray[0];
         usersFactory.register($scope.newUser, function(response) {
             // console.log('usersController - register - ', response);
             if (!response.success) {
                 $scope.errors = response.msg;
             } else {
               console.log(response);
+                $scope.newUser = {};
                 $scope.loginUser.email = response.user_email;
                 $scope.loginUser.password = response.user_password;
                 console.log(loginUser);
