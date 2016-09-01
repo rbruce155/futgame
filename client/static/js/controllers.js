@@ -90,9 +90,9 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
     $scope.creditBuy = {};
 
     //add credit
-    $scope.addCredit = function(){
-        var purchaseInfo = {purchase_amt: $scope.creditBuy, purchase_user: $scope.currentUser};
-        usersFactory.addCredit(purchaseInfo, function (data) {
+    $scope.updateCredit = function(){
+        var purchaseInfo = {purchase_amt: $scope.creditBuy, id: $cookies.get('id'), action: "add"};
+        usersFactory.updateCredit(purchaseInfo, function (data) {
           $scope.userCredit = data.userInfo.credit;
         })
     }
@@ -174,13 +174,24 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
     }
 })
 
-futgame_app.controller('poolPredictionController', function($scope, $location, $cookies, poolServiceFactory, predictionsFactory){
+futgame_app.controller('poolPredictionController', function($scope, $location, $cookies, poolServiceFactory, predictionsFactory, usersFactory){
+
+    $scope.currentUser = {
+            id: $cookies.get('id'),
+            username: $cookies.get('username'),
+        };
 
     $scope.teamPrediction = {};
+
 
     $scope.pool = poolServiceFactory.getPool();
     console.log($scope.pool);
     $scope.matches = $scope.pool._poolMatches;
+    $scope.users = $scope.pool._poolUsers;
+
+    usersFactory.getCredit($scope.currentUser, function(data){
+      $scope.userCredit = data;
+    });
 
     $scope.createPrediction = function()
     {
@@ -211,8 +222,9 @@ futgame_app.controller('poolPredictionController', function($scope, $location, $
             fullPlayerPrediction.poolId = $scope.pool._id;
             fullPlayerPrediction.userId = $cookies.get('id');
             fullPlayerPrediction.predictions = predictionsArray;
+            fullPlayerPrediction.playAmount = $scope.pool.poolPlayAmount;
 
-            console.log(fullPlayerPrediction);
+            //console.log(fullPlayerPrediction);
             predictionsFactory.create(fullPlayerPrediction, function(response){
                 if (!response.success) {
                     console.log(response.msg);

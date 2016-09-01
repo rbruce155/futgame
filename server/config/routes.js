@@ -26,8 +26,8 @@ module.exports = function(app, passport) {
         users.getuser(req, res);
     });
 
-    app.post("/addcredit", function (req, res) {
-        users.addcredit(req, res);
+    app.post("/updatecredit", function (req, res) {
+        users.updatecredit(req, res);
     });
 
     ///==================== pools routes =============
