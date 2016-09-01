@@ -23,10 +23,11 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
             if (!response.success) {
                 $scope.errors = response.msg;
             } else {
-
-                $scope.loginUser.email = $scope.newUser.email;
-                $scope.loginUser.password = $scope.newUser.password;
-                $scope.login();
+              console.log(response);
+                $scope.loginUser.email = response.user_email;
+                $scope.loginUser.password = response.user_password;
+                console.log(loginUser);
+                $scope.login($scope.loginUser);
             }
         });
     };
@@ -101,6 +102,15 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
         poolServiceFactory.setPool(pool);
         $location.url('/pool')
     }
+
+    $scope.now = new Date().toISOString();
+    console.log($scope.now);
+
+
+
+
+
+
 });
 
 //============================ createpoolsController ======================================

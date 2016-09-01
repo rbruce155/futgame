@@ -31,6 +31,8 @@ module.exports = (function() {
                         res.json({
                             success: true,
                             msg: "Successful created new " + req.body.username + ".",
+                            user_email: req.body.email,
+                            user_password: req.body.password
                         });
                     }
                 });
