@@ -1,60 +1,35 @@
-div.video {
-    position:absolute;
-    z-index:0;
-    margin:0 auto;
-    width:100%;
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     overflow: hidden;
+    z-index: -100;
 }
-div.video video, div.video object, div.video embed {
-    width: 100%;
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
     height: auto;
-    min-width: 720px;
-    margin: 0 auto;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%, -50%);
+       -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
 }
 
-div.loginbox {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+@media (max-width: 767px) {
+    .fullscreen-bg {
+        background: url('http://dev2.slicejack.com/fullscreen-video-demo/img/videoframe.jpg') center center / cover no-repeat;
+    }
 
-  width: 40%;
-  height: 50%;
-
-  padding: 20px;
-  background: rgba(255,255,255,0.90);
-  color: gray;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-}
-
-div.loginboxBack {
-  position: absolute;
-  z-index: 1;
-
-  width: 100%;
-  height: 100%;
-
-  padding: 20px;
-  background: rgba(1, 8, 1, 0.65);
-}
-
-.logo img{
-  width: 200px;
-}
-
-.loginform {
-  transition: all linear 0.5s;
-  line-height: 20px;
-  opacity: 1;
-  padding: 10px;
-}
-
-.registrationform {
-  line-height: 0;
-  padding: 0 10px;
-  display: none;
+    .fullscreen-bg__video {
+        display: none;
+    }
 }
 
 nav {
@@ -69,3 +44,118 @@ nav {
 }
 
 .modal{overflow-y: visible !important;}
+
+
+
+/*check if good */
+
+/* Form */
+.form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.12);
+  max-width: 300px;
+  margin: 0 auto 100px;
+  margin-top: 35%;
+  padding: 30px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  text-align: center;
+}
+.form .thumbnail {
+  background: #efc83a;
+  width: 115px;
+  height: 115px;
+  margin: 0px auto 30px;
+  margin-left: 10%;
+  padding: 36px 13px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  box-sizing: border-box;
+}
+
+.form .thumbnail img {
+  display: block;
+  width: 180px;
+}
+.form input {
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #ffffff !important;
+}
+.form button {
+  outline: 0;
+  background: #efc83a;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #292929;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #2ab7a9;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+
+.container2 {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container2:before, .container2:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container2 .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container2 .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container2 .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container2 .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container2 .info span .fa {
+  color: #efc83a;
+}

@@ -1,9 +1,3 @@
-function showRegistration() {
-  $('.loginform').hide();
-  $('.registrationform').show();
-}
-
-function showLogin() {
-  $('.registrationform').hide();
-  $('.loginform').show();
+function toggleForm() {
+     $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 }

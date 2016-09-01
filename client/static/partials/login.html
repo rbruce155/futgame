@@ -1,81 +1,29 @@
 <div ng-controller='usersController'>
-  <div class="video">
-        <video width="600" height="200" autoplay="autoplay" loop="loop" preload>
-          <source src="../videos/background.mp4" type="video/mp4" >
-            <source src="../videos/background.ogg" type="http://leongaban.com/video/ogg" >
-            <source src="../videos/background.webm" type="video/webm" >
-            <object data="../videos/background.mp4" width="1920" height="1080">
-                <param name="wmode" value="transparent">
-                <param name="autoplay" value="true" >
-                <param name="loop" value="true" >
-                <embed src="../videos/background.swf" width="1920" height="1080" wmode="transparent" >
-            </object>
-        </video>
-    </div>
-    <div class="loginboxBack">
-    </div>
 
-    <div class="loginbox">
-      <div class="row" >
-        <div class="logo col s12">
-          <img src="../img/logo.png" alt="" />
-        </div>
+  <div class="fullscreen-bg">
+      <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+          <source src="../videos/background.webm" type="video/webm">
+          <source src="../videos/background.mp4" type="video/mp4">
+          <source src="../videos/background.ogg" type="video/ogg">
+      </video>
+  </div>
+    <div class="container2">
+      <div class="form">
+        <div class="thumbnail"><img src="../img/logo.png"/></div>
+        <form class="register-form" ng-submit='register()'>
+          <input type="text" placeholder="username" ng-model="newUser.username"/>
+          <input type="email" placeholder="email address" ng-model="newUser.email"/>
+          <input type="password" placeholder="password" ng-model="newUser.password"/>
+          <input type="password" placeholder="confirm password" ng-model="newUser.passconf"/>
+          <button>create</button>
+          <p class="message">Already registered? <a href="#/" onclick="toggleForm()">Sign In</a></p>
+        </form>
+        <form class="login-form" ng-submit='login()'>
+          <input type="email" placeholder="email" ng-model='loginUser.email'/>
+          <input type="password" placeholder="password" ng-model='loginUser.password'/>
+          <button>login</button>
+          <p class="message">Not registered? <a href="#/" onclick="toggleForm()">Create an account</a></p>
+        </form>
       </div>
-      <div class="row loginform" >
-       <form class="col s12" ng-submit='login()'>
-         <div class="row">
-           <div class="input-field col s12">
-             <input id="email" type="text" class="validate" ng-model='loginUser.email'>
-             <label for="email">Email</label>
-           </div>
-         </div>
-         <div class="row">
-           <div class="input-field col s12">
-             <input id="password" type="password" class="validate" ng-model='loginUser.password'>
-             <label for="password">Password</label>
-           </div>
-           <button>login</button>
-         </div>
-       </form>
-     </div>
-     <div class="row loginform">
-       <div class="col s12">
-         Dont have an account? <a href="#/" onclick="showRegistration()">Create an account</a>
-       </div>
-     </div>
-     <div class="row registrationform">
-      <form class="col s12" ng-submit='register()'>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="text" class="validate" ng-model="newUser.email">
-            <label for="email">Email</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="username" type="text" class="validate" ng-model="newUser.username">
-            <label for="username">Username</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate" ng-model="newUser.password">
-            <label for="password">Password</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate" ng-model="newUser.passconf">
-            <label for="password">Confirm Password</label>
-          </div>
-          <button>sign up</button>
-        </div>
-      </form>
-    </div>
-    <div class="row registrationform">
-    <div class="col s12">
-        Dont have an account? <a href="#/" onclick="showLogin()" >Register</a>
-      </div>
-    </div>
-    </div>
+  </div>
 </div>
