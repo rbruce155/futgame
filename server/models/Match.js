@@ -12,10 +12,18 @@ var MatchSchema = new Schema({
         type: String,
         required: true
     },
+    awayTeamImg: {
+        type: String,
+        required: true
+    },
     homeTeamScore: {
         type: Number,
         min: 0,
         required: true,
+    },
+    homeTeamImg: {
+        type: String,
+        required: true
     },
     awayTeamScore: {
         type: Number,

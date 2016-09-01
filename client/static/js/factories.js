@@ -39,8 +39,27 @@ futgame_app.factory('usersFactory', function ($http) {
     return factory;
 });
 
+//POOL SERVICES TO STORE THE POOL FROM 
+futgame_app.factory('poolServiceFactory', function(){
+
+    var factory = {};
+    var pool;
+
+    factory.setPool = function(pol)
+    {
+        pool = pol;
+    }
+
+    factory.getPool = function()
+    {
+      return pool;
+    }
+
+    return factory;
+});
+
 //POOLS FACTORY
-futgame_app.factory('poolsFactory', function ($http) {
+futgame_app.factory('poolsFactory', function($http) {
   var factory = {};
 
   factory.index = function(callback) {
@@ -60,6 +79,21 @@ futgame_app.factory('poolsFactory', function ($http) {
   return factory;
 });
 
+//PREDICTIONS FACTORY
+futgame_app.factory('predictionsFactory', function($http){
+    var factory = {};
+
+    factory.create = function(newPrediction, callback)
+    {
+        $http.post('/createprediction', newPrediction).success(function(response){
+            callback(response);
+        });
+    }
+
+    return factory;
+});
+
+//MATCHS FACTORY
 futgame_app.factory('matchsFactory', function($http){
     var factory = {};
 

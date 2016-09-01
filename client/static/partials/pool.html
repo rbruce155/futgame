@@ -1,0 +1,19 @@
+<div ng-controller='poolPredictionController'>
+	<div>
+		<h3>Pool Players: </h3>
+	</div>
+	<div>
+		<h3>Your Predictions: </h3>
+		<div ng-repeat="match in matches">
+			<img src="./img/ligamx/{{match.homeTeamImg}}">
+			<label>{{ match.homeTeamName }}</label>
+			<input type="text" placeholder="0" ng-model="teamPrediction[match.homeTeamName]">
+			<label>VS</label>
+			<input type="text" placeholder="0" ng-model="teamPrediction[match.awayTeamName]">
+			<label>{{ match.awayTeamName }}</label>
+			<img src="./img/ligamx/{{match.awayTeamImg}}"><br>
+			<label>play at: {{ match.matchDate }}</label><br><br>
+		</div>
+		<button ng-click="createPrediction()">Save Prediction</button>
+	</div>
+</div>

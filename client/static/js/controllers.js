@@ -3,9 +3,8 @@
 futgame_app.controller('usersController', function($scope, $cookies, $location, usersFactory) {
 
     $scope.login = function() {
-        // console.log('usersController - login');
         usersFactory.login($scope.loginUser, function(response) {
-            // console.log('usersController - login', response);
+            console.log('usersController - login');
             $cookies.put('id', response.id);
             $cookies.put('username', response.username);
             // console.log('cookies all', $cookies.getAll());
@@ -24,12 +23,10 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
             if (!response.success) {
                 $scope.errors = response.msg;
             } else {
+
                 $scope.loginUser.email = $scope.newUser.email;
                 $scope.loginUser.password = $scope.newUser.password;
                 $scope.login();
-                // usersFactory.login($scope.loginUser, function(response) {
-                //     $location.url('/dashboard');
-                // });
             }
         });
     };
@@ -50,7 +47,9 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 
 //============================ dashboardController ======================================
 
-futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory) {
+
+futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory) {
+
     $scope.currentUser = {
         id: $cookies.get('id'),
         username: $cookies.get('username'),
@@ -86,6 +85,7 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
     $scope.createPoolButton = function(){
         $location.url('/createpool');
     }
+
     // initialize credit scope object
     $scope.creditBuy = {};
 
@@ -95,6 +95,11 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
         usersFactory.addCredit(purchaseInfo, function (data) {
           $scope.userCredit = data.userInfo.credit;
         })
+    }
+
+    $scope.joinPool = function(pool){
+        poolServiceFactory.setPool(pool);
+        $location.url('/pool')
     }
 });
 
@@ -166,5 +171,58 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
             }
         })
 
+    }
+})
+
+futgame_app.controller('poolPredictionController', function($scope, $location, $cookies, poolServiceFactory, predictionsFactory){
+
+    $scope.teamPrediction = {};
+
+    $scope.pool = poolServiceFactory.getPool();
+    console.log($scope.pool);
+    $scope.matches = $scope.pool._poolMatches;
+
+    $scope.createPrediction = function()
+    {
+        var size = 0, key;
+        for(key in $scope.teamPrediction)
+        {
+            if($scope.teamPrediction.hasOwnProperty(key)) size++;
+        }
+
+        //this step is to check if the user puts all the predictions for each team
+        if(size != $scope.matches.length*2)
+        {
+            console.log("Get all your predictions!");
+        }
+        else
+        {
+            var fullPlayerPrediction = {};
+            var predictionsArray= [];
+
+            for(var i = 0; i < $scope.matches.length; i++)
+            {
+                var homeTeam = $scope.matches[i].homeTeamName;
+                var awayTeam = $scope.matches[i].awayTeamName;
+                var matchID = $scope.matches[i]._id;
+                predictionsArray.push({_match: matchID, homeTeamScorePrediction: $scope.teamPrediction[homeTeam], awayTeamScorePrediction: $scope.teamPrediction[awayTeam]});
+            }
+
+            fullPlayerPrediction.poolId = $scope.pool._id;
+            fullPlayerPrediction.userId = $cookies.get('id');
+            fullPlayerPrediction.predictions = predictionsArray;
+
+            console.log(fullPlayerPrediction);
+            predictionsFactory.create(fullPlayerPrediction, function(response){
+                if (!response.success) {
+                    console.log(response.msg);
+                } else {
+                    console.log(response.msg);
+                    $location.url('/dashboard');
+                }
+            });
+
+            $scope.teamPrediction = {};
+        }
     }
 })

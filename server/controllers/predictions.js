@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Prediction = mongoose.model('Prediction');
+var Pool = mongoose.model('Pool');
 
 module.exports = {
     findAllWithPoolId: function(req, res) {
@@ -52,10 +53,24 @@ module.exports = {
                     msg: err
                 });
             } else {
-                res.json({
-                    success: true,
-                    newPredictionId: newPrediction._id
-                });
+                Pool.findByIdAndUpdate(req.body.poolId, {$push: {"poolPredictions": req.body.poolId, "_poolUsers": req.body.userId}}, 
+                    {save: true, upsert: true}, function(err, pool){
+
+                    if(err)
+                    {
+                        res.json({
+                            success: false,
+                            msg: err
+                        });
+                    }
+                    else
+                    {
+                        res.json({
+                            success: true,
+                            msg: "Successfully create the predictions!"
+                        });
+                    }
+                })
             }
         });
     }, //END create

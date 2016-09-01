@@ -30,7 +30,11 @@ var PredictionSchema = new Schema({
             min: 0,
             required: true
         },
-    }]
+    }],
+    predictionPay: {
+        type: Boolean, 
+        default: false
+    }
 }, {
     timestamps: true
 });
