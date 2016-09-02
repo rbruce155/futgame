@@ -19,7 +19,9 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 
     $scope.register = function() {
         var imgArray = ["donald.jpg", "obama.jpg", "hilary.jpg", "face1.jpg", "face2.jpg"];
-        $scope.newUser.img = imgArray[2];
+        var randomNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+        $scope.newUser.img = imgArray[randomNum];
+
         usersFactory.register($scope.newUser, function(response) {
             // console.log('usersController - register - ', response);
             if (!response.success) {
@@ -52,7 +54,7 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 //============================ dashboardController ======================================
 
 
-futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory) {
+futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory, matchsFactory, $interval) {
 
     $scope.currentUser = {
         id: $cookies.get('id'),
@@ -108,11 +110,32 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
 
     $scope.watchPool = function(pool){
         poolServiceFactory.setPool(pool);
-        $location.url('poolon'); 
+        $location.url('poolon');
     }
 
-    $scope.now = new Date().toISOString();
-    console.log($scope.now);
+    // $scope.now = new Date().toISOString();
+    // console.log($scope.now);
+
+    setInterval(dashTimer, 1000);
+
+    $scope.time = {now: 'hi'};
+    function dashTimer() {
+
+      matchsFactory.dashTime(function (data) {
+        $scope.time.now = data;
+        console.log($scope.time.now);
+      });
+
+    };
+
+
+
+
+
+
+
+
+
 });
 
 //============================ createpoolsController ======================================
@@ -268,7 +291,7 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
     for(var i = 0; i < $scope.players.length; i++)
     {
         $scope.fullPlayers.push({
-            username: $scope.players[i].username, 
+            username: $scope.players[i].username,
             img: $scope.players[i].img,
             points: $scope.predictions[i].points
         });
@@ -289,5 +312,5 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
         console.log($scope.matches);
     })
 
-    
+
 });

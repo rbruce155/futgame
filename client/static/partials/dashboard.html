@@ -39,6 +39,7 @@
 
   <div class="wrapBody">
     <h2>Current Pools:</h2>
+    <input ng-model="time.now" >
     <table class="centered striped">
          <thead>
            <tr>
@@ -56,8 +57,8 @@
              <td>${{pool.poolPlayAmount}}</td>
              <td>{{pool._poolUsers.length}}</td>
              <td>${{pool.poolPlayAmount * pool._poolUsers.length}}</td>
-             <td ng-if="pool._poolMatches[0].matchDate < now"><button type="button" class="btn btn-default" ng-click="joinPool(pool)">Join</button></td>
-             <td ng-if="pool._poolMatches[0].matchDate > now"><button type="button" class="btn btn-default" ng-click="watchPool(pool)">Watch</button></td>
+             <td ng-if="pool._poolMatches[0].matchDate > now"><button type="button" class="btn btn-default" ng-click="joinPool(pool)">Join</button></td>
+             <td ng-if="pool._poolMatches[0].matchDate < now"><button type="button" class="btn btn-default" ng-click="watchPool(pool)">Watch</button></td>
            </tr>
          </tbody>
        </table>
