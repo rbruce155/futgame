@@ -105,3 +105,20 @@ futgame_app.factory('matchsFactory', function($http){
 
     return factory;
 });
+
+//SOCKET FACTORY
+futgame_app.factory('socketFactory', function(){
+    var factory = {};
+    var socket = io.connect();
+
+    factory.activeSocket = function(livematches, callback){
+
+        socket.emit("live_matches", {livematches});
+
+        socket.on("testing", function(response){
+            callback(response);
+        });
+    };
+
+    return factory;
+});

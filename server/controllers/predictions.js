@@ -55,7 +55,7 @@ module.exports = {
                     msg: err
                 });
             } else {
-                Pool.findByIdAndUpdate(req.body.poolId, {$push: {"poolPredictions": req.body.poolId, "_poolUsers": req.body.userId}}, 
+                Pool.findByIdAndUpdate(req.body.poolId, {$push: {"poolPredictions": newPrediction._id, "_poolUsers": req.body.userId}}, 
                     {save: true, upsert: true}, function(err, pool){
 
                     if(err)

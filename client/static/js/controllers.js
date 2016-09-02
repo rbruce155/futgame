@@ -19,7 +19,7 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 
     $scope.register = function() {
         var imgArray = ["donald.jpg", "obama.jpg", "hilary.jpg", "face1.jpg", "face2.jpg"];
-        $scope.newUser.img = imgArray[0];
+        $scope.newUser.img = imgArray[2];
         usersFactory.register($scope.newUser, function(response) {
             // console.log('usersController - register - ', response);
             if (!response.success) {
@@ -103,17 +103,16 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
 
     $scope.joinPool = function(pool){
         poolServiceFactory.setPool(pool);
-        $location.url('/pool')
+        $location.url('/pool');
+    }
+
+    $scope.watchPool = function(pool){
+        poolServiceFactory.setPool(pool);
+        $location.url('poolon'); 
     }
 
     $scope.now = new Date().toISOString();
     console.log($scope.now);
-
-
-
-
-
-
 });
 
 //============================ createpoolsController ======================================
@@ -187,6 +186,9 @@ futgame_app.controller('createPoolsController', function($scope, $location, $coo
     }
 })
 
+//============================ poolPredictionController ======================================
+
+
 futgame_app.controller('poolPredictionController', function($scope, $location, $cookies, poolServiceFactory, predictionsFactory, usersFactory){
 
     $scope.currentUser = {
@@ -251,3 +253,41 @@ futgame_app.controller('poolPredictionController', function($scope, $location, $
         }
     }
 })
+
+//============================ poolonController ======================================
+
+futgame_app.controller('poolonController', function($scope, $cookies, poolServiceFactory, socketFactory){
+
+    $scope.pool = poolServiceFactory.getPool();
+    console.log($scope.pool);
+
+    $scope.players = $scope.pool._poolUsers;
+    $scope.predictions = $scope.pool.poolPredictions;
+    $scope.fullPlayers = [];
+
+    for(var i = 0; i < $scope.players.length; i++)
+    {
+        $scope.fullPlayers.push({
+            username: $scope.players[i].username, 
+            img: $scope.players[i].img,
+            points: $scope.predictions[i].points
+        });
+    }
+
+    var now = new Date().toISOString();
+    $scope.matches = [];
+    for(var i = 0 ; i < $scope.pool._poolMatches.length; i++)
+    {
+        if($scope.pool._poolMatches[i].matchDate >= now)
+        {
+            $scope.matches.push($scope.pool._poolMatches[i]);
+        }
+    }
+
+    socketFactory.activeSocket($scope.matches, function(response){
+        $scope.matches = response.matches;
+        console.log($scope.matches);
+    })
+
+    
+});

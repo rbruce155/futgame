@@ -10,7 +10,8 @@ module.exports = {
                     msg: err
                 });
             } else {
-                res.json({
+                console.log(matches);
+                return res.json({
                     success: true,
                     matches: matches
                 });
@@ -77,5 +78,4 @@ module.exports = {
             }
         });
     }//END update
-
 }; //END module.exports

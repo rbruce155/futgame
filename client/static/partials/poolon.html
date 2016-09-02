@@ -1,0 +1,22 @@
+<div ng-controller='poolonController'>
+	<dir>
+		<h3>Players: </h3>
+		<ul ng-repeat="player in fullPlayers">
+			<li><img src="./img/profile/{{player.img}}"></li>
+			<li>{{ player.username }}</li>
+			<li>{{ player.points }}</li>
+		</ul><br>
+	</dir>
+	<dir>
+		<h3>Live Matches: </h3>
+		<ul ng-repeat="match in matches" repeat-done="repeatDone()">
+			<li><img src="./img/ligamx/{{match.homeTeamImg}}"></li>
+			<li>{{match.homeTeamName}}</li>
+			<li>{{match.homeTeamScore}}</li>
+			<li>VS</li>
+			<li>{{match.awayTeamScore}}</li>
+			<li>{{match.awayTeamName}}</li>
+			<li><img src="./img/ligamx/{{match.awayTeamImg}}"></li>
+		</ul>
+	</dir>
+</div>

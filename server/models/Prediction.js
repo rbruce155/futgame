@@ -33,6 +33,10 @@ var PredictionSchema = new Schema({
     }],
     predictionPay: {
         type: Boolean, 
+    },
+    points: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true

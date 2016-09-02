@@ -13,6 +13,9 @@ futgame_app.config(function($routeProvider) {
         .when('/pool', {
             templateUrl: 'partials/pool.html'
         })
+        .when('/poolon', {
+            templateUrl: 'partials/poolon.html'
+        })
 
     .otherwise({
         redirectTo: '/'

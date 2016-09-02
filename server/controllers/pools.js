@@ -3,7 +3,7 @@ var Pool = mongoose.model('Pool');
 
 module.exports = {
     index: function(req, res) {
-        Pool.find({}).populate('_poolCreateBy').populate('_poolMatches').populate('_poolUsers').exec(function(err, pools) {
+        Pool.find({}).populate('_poolCreateBy').populate('_poolMatches').populate('_poolUsers').populate('poolPredictions').exec(function(err, pools) {
             if (err) {
                 res.json({
                     success: false,

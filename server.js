@@ -38,6 +38,25 @@ app.use(flash());
 var routes = require("./server/config/routes");
 routes(app, passport);
 
-app.listen(8000, function(){
+var server = app.listen(8000, function(){
 	console.log("Listening on port 8000");
-})
+});
+
+var io = require("socket.io").listen(server);
+var Match = mongoose.model('Match');
+
+io.sockets.on("connection", function(socket){
+
+	socket.on("live_matches", function(livematches){
+		setInterval(timer, 10000);
+		function timer(){
+			Match.find({}, function(err, matches) {
+	            if (err) {
+	                io.emit("testing", null);
+	            } else {
+	                io.emit("testing", {matches});
+	            }
+	        });
+	}
+	})
+});
