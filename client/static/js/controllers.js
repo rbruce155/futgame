@@ -113,20 +113,20 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
         $location.url('poolon');
     }
 
-    // $scope.now = new Date().toISOString();
-    // console.log($scope.now);
+    $scope.now = new Date().toISOString();
+    console.log($scope.now);
 
-    setInterval(dashTimer, 1000);
+    // setInterval(dashTimer, 1000);
 
-    $scope.time = {now: 'hi'};
-    function dashTimer() {
-
-      matchsFactory.dashTime(function (data) {
-        $scope.time.now = data;
-        console.log($scope.time.now);
-      });
-
-    };
+    // $scope.time = {now: 'hi'};
+    // function dashTimer() {
+    //
+    //   matchsFactory.dashTime(function (data) {
+    //     $scope.time.now = data;
+    //     console.log($scope.time.now);
+    //   });
+    //
+    // };
 
 
 
@@ -293,9 +293,12 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
         $scope.fullPlayers.push({
             username: $scope.players[i].username,
             img: $scope.players[i].img,
-            points: $scope.predictions[i].points
+            points: $scope.predictions[i].points,
+            prediction: $scope.predictions[i].predictions
         });
+
     }
+    console.log($scope.predictions[0].predictions);
 
     var now = new Date().toISOString();
     $scope.matches = [];
@@ -311,6 +314,21 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
         $scope.matches = response.matches;
         console.log($scope.matches);
     })
+
+
+    $scope.showPredictions = function (player) {
+      $scope.playerPredictionsModal = player;
+
+      var predArr = [];
+
+      console.log(player.prediction[0].homeTeamScorePrediction);
+
+      // for(var i=0; i < player.prediction.length; i++){
+      //   predArr.push({player.prediction})
+      // }
+
+      $scope.predArr = predArr;
+    }
 
 
 });

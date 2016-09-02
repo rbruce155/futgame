@@ -1,22 +1,111 @@
 <div ng-controller='poolonController'>
-	<dir>
-		<h3>Players: </h3>
-		<ul ng-repeat="player in fullPlayers">
-			<li><img src="./img/profile/{{player.img}}"></li>
-			<li>{{ player.username }}</li>
-			<li>{{ player.points }}</li>
-		</ul><br>
-	</dir>
-	<dir>
-		<h3>Live Matches: </h3>
-		<ul ng-repeat="match in matches" repeat-done="repeatDone()">
-			<li><img src="./img/ligamx/{{match.homeTeamImg}}"></li>
-			<li>{{match.homeTeamName}}</li>
-			<li>{{match.homeTeamScore}}</li>
-			<li>VS</li>
-			<li>{{match.awayTeamScore}}</li>
-			<li>{{match.awayTeamName}}</li>
-			<li><img src="./img/ligamx/{{match.awayTeamImg}}"></li>
-		</ul>
-	</dir>
+
+	<!-- Modal Structure -->
+	<div id="creditModal" class="modal">
+			<div class="modal-content">
+					<h4>Buy Credit</h4>
+					<h6>Current Credit: ${{userCredit}}</h6>
+					<div input-field>
+							<label>Choose amout:</label><br>
+							<select class="" ng-model="creditBuy.amount" material-select watch>
+									<option value="5">$5</option>
+									<option value="10">$10</option>
+									<option value="20">$20</option>
+									<option value="50">$50</option>
+									<option value="100">$100</option>
+							</select>
+					</div>
+			</div>
+			<div class="modal-footer">
+					<a ng-click="updateCredit()" class="modal-action modal-close waves-effect waves-green btn-flat">Buy</a>
+					<a href="#/dashboard" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+	</div>
+
+	<!-- Modal Structure -->
+	<div id="predictionModal" class="modal">
+			<div class="modal-content">
+					<!-- <img src="./img/profile/{{playerPredictionsModal.img}}" class="circle"/> -->
+
+					{{playerPredictionsModal}}
+
+					<h6>{{playerPredictionsModal.username}}</h6>
+
+					{{predArr}}
+
+					<div class="row center match" ng-repeat="prediction in predictionResults">
+						<div class="col s3">
+							<img src="./img/ligamx/{{match.homeTeamImg}}" class="teamImgs"><br>
+							<span class="teamName">{{match.homeTeamName}}</span>
+						</div>
+
+					</div>
+
+			</div>
+			<div class="modal-footer">
+					<a ng-click="updateCredit()" class="modal-action modal-close waves-effect waves-green btn-flat">Buy</a>
+					<a href="#/dashboard" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+	</div>
+
+	<!-- Dropdown Structure -->
+	<ul id='userDropdown' class='dropdown-content'>
+		<li><a href='#creditModal' modal>Add Credit</a></li>
+		<li><a ng-click="logoutButton()">Logout</a></li>
+	</ul>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#" class="brand-logo"><img style="width:170px;padding-top:8px;" src="../img/logo.png" alt="" /></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href='#creditModal' modal>Credit: ${{userCredit}}</a></li>
+				<li><button type="button" class="btn btn-default navbar-btn" ng-click="createPoolButton()">Create Pool</button></li>
+				<li><a class='dropdown-button btn' href='javascript:void(0);' data-activates='userDropdown' dropdown data-hover="true">Welcome {{ currentUser.username }}</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="row">
+		<div class="col s3"><span class="flow-text">
+			<div>
+				<h5>Players: </h5>
+					<ul class="collection" ng-repeat="player in fullPlayers">
+						<a href="#predictionModal" modal ng-click="showPredictions(player)"><li class="collection-item avatar collectionColor">
+							<img src="./img/profile/{{player.img}}" class="circle">
+							<span class="title">{{ player.username }}</span>
+							<br>
+							<label style="color:black;">Points: {{player.points}}</label>
+						</li></a>
+					</ul>
+			</div>
+		</span></div>
+	<div class="col s9"><span class="flow-text">
+		<h4>Live Matches: </h4>
+
+		<div class="row center match" ng-repeat="match in matches">
+			<div class="col s3">
+				<img src="./img/ligamx/{{match.homeTeamImg}}" class="teamImgs"><br>
+				<span class="teamName">{{match.homeTeamName}}</span>
+			</div>
+			<div class="col s1">
+				<span>{{match.homeTeamScore}}</span>
+			</div>
+			<div class="col s4">
+				<label>VS</label><br>
+				<label><strong>{{ match.matchDate | date: longDate }}</strong></label>
+			</div>
+			<div class="col s1">
+				<span>{{match.awayTeamScore}}</span>
+			</div>
+			<div class="col s2">
+				<img src="./img/ligamx/{{match.awayTeamImg}}" class="teamImgs"><br>
+				<span class="teamName">{{match.awayTeamName}}</span>
+			</div>
+		</div>
+
+
+		<span style="float:right;"><a href="#/dashboard" class=" waves-effect waves-green btn-flat">Go to dashboard</a></span>
+
+		</div>
+	</div>
+
 </div>
