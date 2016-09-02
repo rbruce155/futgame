@@ -159,3 +159,23 @@ nav {
 .container2 .info span .fa {
   color: #efc83a;
 }
+
+.teamImgs{
+  width: 60px;
+  border-radius: 30px;
+  border: solid #26a69a 4px;
+  margin-bottom: -20px;
+}
+
+.teamName{
+  font-size: 0.6em;
+}
+
+.match{
+  background-color: #f9f9f9;
+  padding-top: 10px;
+}
+
+.collectionColor{
+  background-color: rgba(84, 156, 146, 0.51) !important;
+}

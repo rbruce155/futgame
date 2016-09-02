@@ -19,7 +19,8 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 
     $scope.register = function() {
         var imgArray = ["donald.jpg", "obama.jpg", "hilary.jpg", "face1.jpg", "face2.jpg"];
-        $scope.newUser.img = imgArray[0];
+        var randomNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+        $scope.newUser.img = imgArray[randomNum];
         usersFactory.register($scope.newUser, function(response) {
             // console.log('usersController - register - ', response);
             if (!response.success) {
@@ -52,7 +53,7 @@ futgame_app.controller('usersController', function($scope, $cookies, $location, 
 //============================ dashboardController ======================================
 
 
-futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory) {
+futgame_app.controller('dashboardController', function($scope, $cookies, $location, usersFactory, poolsFactory, poolServiceFactory, matchsFactory, $interval) {
 
     $scope.currentUser = {
         id: $cookies.get('id'),
@@ -106,8 +107,24 @@ futgame_app.controller('dashboardController', function($scope, $cookies, $locati
         $location.url('/pool')
     }
 
-    $scope.now = new Date().toISOString();
-    console.log($scope.now);
+    // $scope.now = new Date().toISOString();
+    // console.log($scope.now);
+
+    setInterval(dashTimer, 1000);
+
+    $scope.time = {now: 'hi'};
+    function dashTimer() {
+
+      matchsFactory.dashTime(function (data) {
+        $scope.time.now = data;
+        console.log($scope.time.now);
+      });
+
+    };
+
+
+
+
 
 
 

@@ -39,7 +39,7 @@ futgame_app.factory('usersFactory', function ($http) {
     return factory;
 });
 
-//POOL SERVICES TO STORE THE POOL FROM 
+//POOL SERVICES TO STORE THE POOL FROM
 futgame_app.factory('poolServiceFactory', function(){
 
     var factory = {};
@@ -101,6 +101,11 @@ futgame_app.factory('matchsFactory', function($http){
         $http.get('/getmatches').success(function(response){
             callback(response);
         })
+    }
+
+    factory.dashTime = function (callback) {
+        var now = new Date().toISOString();
+        callback(now);
     }
 
     return factory;
