@@ -309,7 +309,7 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
         {
             $scope.matches.push($scope.pool._poolMatches[i]);
         }
-        else {
+        else if ($scope.pool._poolMatches[i].matchDate <= now){
             $scope.matchesDone.push($scope.pool._poolMatches[i]);
         }
     }
