@@ -102,6 +102,28 @@
 			</div>
 		</div>
 
+		<h6>Past Games:</h6>
+		<div class="row center matchDone" ng-repeat="match in matchesDone">
+			<div class="col s3">
+				<img src="./img/ligamx/{{match.homeTeamImg}}" class="teamImgs"><br>
+				<span class="teamName">{{match.homeTeamName}}</span>
+			</div>
+			<div class="col s1">
+				<span><strong>{{match.homeTeamScore}}</strong></span>
+			</div>
+			<div class="col s4">
+				<label><strong>FINAL</strong></label><br>
+				<label><strong>{{ match.matchDate | date: longDate }}</strong></label>
+			</div>
+			<div class="col s1">
+				<span><strong>{{match.awayTeamScore}}</strong></span>
+			</div>
+			<div class="col s2">
+				<img src="./img/ligamx/{{match.awayTeamImg}}" class="teamImgs"><br>
+				<span class="teamName">{{match.awayTeamName}}</span>
+			</div>
+		</div>
+
 
 		<span style="float:right;"><a href="#/dashboard" class=" waves-effect waves-green btn-flat">Go to dashboard</a></span>
 

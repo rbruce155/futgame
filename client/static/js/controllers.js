@@ -302,11 +302,15 @@ futgame_app.controller('poolonController', function($scope, $cookies, poolServic
 
     var now = new Date().toISOString();
     $scope.matches = [];
+    $scope.matchesDone = [];
     for(var i = 0 ; i < $scope.pool._poolMatches.length; i++)
     {
         if($scope.pool._poolMatches[i].matchDate >= now)
         {
             $scope.matches.push($scope.pool._poolMatches[i]);
+        }
+        else {
+            $scope.matchesDone.push($scope.pool._poolMatches[i]);
         }
     }
 

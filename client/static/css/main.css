@@ -176,6 +176,11 @@ nav {
   padding-top: 10px;
 }
 
+.matchDone{
+  background-color: rgba(30, 210, 60, 0.08);
+  padding-top: 10px;
+}
+
 .collectionColor{
   background-color: rgba(84, 156, 146, 0.51) !important;
 }
